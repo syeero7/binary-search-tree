@@ -179,4 +179,24 @@ export default class Tree {
 
     return Math.max(this.height(node.left), this.height(node.right)) + 1;
   }
+
+  depth(node) {
+    if (typeof node !== "object")
+      throw new TypeError(`${node} is not an object`);
+
+    let current = this.#root;
+    let count = 0;
+
+    while (current.data !== node.data) {
+      if (current.data > node.data) {
+        count++;
+        current = current.left;
+      } else {
+        count++;
+        current = current.right;
+      }
+    }
+
+    return count;
+  }
 }

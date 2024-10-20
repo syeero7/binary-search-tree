@@ -39,4 +39,29 @@ export default class Tree {
 
     print(this.#root);
   }
+
+  insert(value) {
+    const root = this.#root;
+
+    if (!root) {
+      this.#root = new Node(value);
+      return;
+    }
+    const searchTree = (node) => {
+      if (value < node.data && !node.left) {
+        node.left = new Node(value);
+        return;
+      }
+      if (value > node.data && !node.right) {
+        node.right = new Node(value);
+        return;
+      }
+      if (value < node.data && node.left) return searchTree(node.left);
+      if (value > node.data && node.right) return searchTree(node.right);
+
+      return null;
+    };
+
+    return searchTree(root);
+  }
 }

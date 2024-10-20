@@ -1,5 +1,5 @@
-import Node from "../../binary-search-tree/Node.js";
-import timSort from "../../binary-search-tree/timSort.js";
+import Node from "./Node.js";
+import timSort from "./timSort.js";
 
 export default class Tree {
   #root;
@@ -124,5 +124,50 @@ export default class Tree {
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
+  }
+
+  inOrder(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError(`${callback} is not a function`);
+
+    if (!this.#root) return null;
+
+    const traverseInOrder = (node) => {
+      if (node.left) traverseInOrder(node.left);
+      callback(node);
+      if (node.right) traverseInOrder(node.right);
+    };
+
+    traverseInOrder(this.#root);
+  }
+
+  preOrder(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError(`${callback} is not a function`);
+
+    if (!this.#root) return null;
+
+    const traversePreOrder = (node) => {
+      callback(node);
+      if (node.left) traversePreOrder(node.left);
+      if (node.right) traversePreOrder(node.right);
+    };
+
+    traversePreOrder(this.#root);
+  }
+
+  postOrder(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError(`${callback} is not a function`);
+
+    if (!this.#root) return null;
+
+    const traversePostOrder = (node) => {
+      if (node.left) traversePostOrder(node.left);
+      if (node.right) traversePostOrder(node.right);
+      callback(node);
+    };
+
+    traversePostOrder(this.#root);
   }
 }

@@ -199,4 +199,19 @@ export default class Tree {
 
     return count;
   }
+
+  isBalanced() {
+    if (!this.#root) return true;
+
+    const calcMinHeight = (node) => {
+      if (!node) return -1;
+
+      return Math.min(calcMinHeight(node.left), calcMinHeight(node.right)) + 1;
+    };
+
+    const max = this.height(this.#root);
+    const min = calcMinHeight(this.#root);
+
+    return max - min <= 1;
+  }
 }

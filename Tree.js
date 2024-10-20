@@ -107,4 +107,22 @@ export default class Tree {
     }
     return null;
   }
+
+  levelOrder(callback) {
+    if (typeof callback !== "function")
+      throw new TypeError(`${callback} is not a function`);
+
+    if (!this.#root) return null;
+
+    const queue = [];
+
+    queue.push(this.#root);
+    while (queue.length) {
+      const node = queue.shift();
+
+      callback(node);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+  }
 }

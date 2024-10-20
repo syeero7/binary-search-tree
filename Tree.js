@@ -170,4 +170,13 @@ export default class Tree {
 
     traversePostOrder(this.#root);
   }
+
+  height(node) {
+    if (typeof node !== "object")
+      throw new TypeError(`${node} is not an object`);
+
+    if (!node) return -1;
+
+    return Math.max(this.height(node.left), this.height(node.right)) + 1;
+  }
 }

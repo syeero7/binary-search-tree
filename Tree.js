@@ -64,4 +64,33 @@ export default class Tree {
 
     return searchTree(root);
   }
+
+  deleteItem(value) {
+    const deleteNode = (node, value) => {
+      if (!node) return null;
+
+      if (node.data == value) {
+        if (!node.left && !node.right) return null;
+        if (!node.left) return node.right;
+        if (!node.right) return node.left;
+
+        let current = node.left;
+
+        while (current.right) current = current.right;
+        node.data = current.data;
+        node.left = deleteNode(node.left, current.data);
+        return node;
+      }
+
+      if (node.data > value) {
+        node.left = deleteNode(node.left, value);
+        return node;
+      } else {
+        node.right = deleteNode(node.right, value);
+        return node;
+      }
+    };
+
+    this.#root = deleteNode(this.#root, value);
+  }
 }

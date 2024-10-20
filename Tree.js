@@ -214,4 +214,13 @@ export default class Tree {
 
     return max - min <= 1;
   }
+
+  rebalance() {
+    if (!this.#root) return;
+
+    const array = [];
+
+    this.levelOrder((node) => array.push(node.data));
+    this.buildTree(array);
+  }
 }
